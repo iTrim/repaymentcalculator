@@ -1,0 +1,133 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#calc">
+  Launch Calculator
+</button>
+
+
+
+
+<!--CALC-->
+
+<div id="calc" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Calculate your repayments over selected months</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+<form id="calc1">  
+
+<div class="form-group">
+  <input type="range" class="custom-range" min="1" max="4000" id="myrange">
+  <p class="text-primary">Product Value: €<span id="demo"></span></p>
+</div>
+  
+<div class="form-group">
+  <input type="range" class="custom-range" min="12" max="24" id="mymonths">
+  <p class="text-primary">Spread over how many months: <span id="months"></span></p>
+</div>
+  
+
+<div class="form-group">
+<label for="usr">12% APR</label>
+  <input id="calc1-solution" type="number" class="form-control" readonly>
+</div>
+
+<div class="form-group">
+<label for="total">Total €</label>
+  <input id="total" type="number" class="form-control" readonly>
+</div>
+
+<div class="form-group">
+  <label for="Repayments" class="text-primary">Repayments per month over <span id="months2"></span> months</label>
+  <input id="repayments" type="number" class="form-control" readonly>
+</div>
+
+    <input id="calc1-num-y" type="hidden" value="1.12" />
+
+    <button type="button" id="calc1-submit" class="btn btn-primary btn-lg btn-block" type="submit">Calculate</button>
+
+</form>
+      </div><!--modal-body-->
+
+
+
+      <div class="modal-footer">
+        <p class="text-muted"> This information is provided for illustrative purposes only. It does not constitute a contract. We are not recording and will not use the information quoted by you in this calculator. </p>
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--CALC-->
+
+
+
+<script type="text/javascript">
+    
+var slider = document.getElementById("myrange");
+var Monthslider = document.getElementById("mymonths");
+var outputMonths = document.getElementById("months");
+var outputMonths2 = document.getElementById("months2");
+
+var output = document.getElementById("demo");
+output.innerHTML = slider.value; // Display the default slider value
+outputMonths.innerHTML = Monthslider.value; // Display the default slider value
+outputMonths2.innerHTML = Monthslider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function() {
+  output.innerHTML = this.value;
+
+} 
+
+Monthslider.oninput = function() {
+  outputMonths.innerHTML = this.value;
+  outputMonths2.innerHTML = this.value;
+} 
+
+
+document.getElementById("calc1-submit")
+  .addEventListener("click", function (e) {
+    e.preventDefault();
+    const numX = document.getElementById("myrange").value;
+    const numY = document.getElementById("calc1-num-y").value;
+    const Monthslider = document.getElementById("mymonths").value;
+
+    var percentageIncrease = (numX * numY).toFixed(2);
+    var percentageNumber = (percentageIncrease - numX).toFixed(2);
+    var total = percentageIncrease;
+
+    var payments = total /Monthslider;
+    var repayments = payments.toFixed(2);
+    
+ 
+    //document.getElementById("calc1-solution").value = percentageIncrease;
+    document.getElementById("calc1-solution").value = percentageNumber;
+    document.getElementById("total").value = total;
+    document.getElementById("repayments").value = repayments;
+    document.getElementById("months").value = Monthslider;
+    document.getElementById("months2").value = Monthslider;
+});
+
+</script>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
